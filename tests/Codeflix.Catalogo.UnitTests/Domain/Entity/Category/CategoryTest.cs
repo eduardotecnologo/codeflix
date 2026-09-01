@@ -22,7 +22,7 @@ public class CategoryTest
         var dateTimeBefore = DateTime.Now;
 
         // Act
-        var category = new Codeflix.Catalogo.Domain.Entity.Category(validData.Name, validData.Description);
+        var category = new Codeflix.Catalogo.Domain.Entity.Category(validData.Name, validData.Description, isActive);
         
         var dateTimeAfter = DateTime.Now.AddSeconds(1);
         //Assert
@@ -36,6 +36,6 @@ public class CategoryTest
         Assert.True(category.CreatedAt > dateTimeBefore);
         Assert.True(category.CreatedAt < dateTimeAfter);
 
-        Assert.True(category.IsActive);
+        Assert.Equal(isActive, category.IsActive);
     }
 }

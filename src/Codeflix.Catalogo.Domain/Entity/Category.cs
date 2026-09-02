@@ -1,3 +1,6 @@
+using Codeflix.Catalogo.Domain.Exceptions;
+using System;
+
 namespace Codeflix.Catalogo.Domain.Entity;
 
 public class Category : SeedWork.Entity
@@ -15,5 +18,32 @@ public class Category : SeedWork.Entity
         Description = description;
         IsActive = isActive;
         CreatedAt = DateTime.Now;
+        Validate();
+
+    }
+    
+    public void Validate()
+    {
+        if(String.IsNullOrWhiteSpace(Name))
+        {
+            throw new ArgumentException($"{nameof(Name)} should not be empty or null");
+        }
+        if(Description == null)
+        {
+            throw new ArgumentException($"{nameof(Description)} should not be null");
+        }
+        if(Name.Length < 3)
+        {
+            throw new ArgumentException($"{nameof(Name)} should be at least 3 characters long");
+        }
+        if(Name.Length > 255)
+        {
+            throw new ArgumentException($"{nameof(Name)} should be at most 255 characters long");
+        }
+        if(Description.Length > 10000)
+        {
+            throw new ArgumentException($"{nameof(Description)} should be at most 10000 characters long");
+        }
+        
     }
 }

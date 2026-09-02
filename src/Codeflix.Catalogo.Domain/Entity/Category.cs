@@ -22,7 +22,7 @@ public class Category : SeedWork.Entity
 
     }
     
-    public void Validate()
+    private void Validate()
     {
         if(String.IsNullOrWhiteSpace(Name))
         {
@@ -45,5 +45,34 @@ public class Category : SeedWork.Entity
             throw new ArgumentException($"{nameof(Description)} should be at most 10000 characters long");
         }
         
+    }
+
+    public void Activate()
+    {
+        IsActive = true;
+        Validate();
+    }
+
+    public void DeActivate()
+    {
+        IsActive = false;
+        Validate();
+    }
+
+    public void Update(string name, string description)
+    {
+        Name = name;
+        Description = description;
+        Validate();
+    }
+
+    public void UpdateOnlyName(string name, string? description = null)
+    {
+        Name = name;
+        if (description != null)
+        {
+            Description = description;
+        }
+        Validate();
     }
 }

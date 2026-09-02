@@ -1,19 +1,18 @@
 using Codeflix.Catalogo.Domain.Exceptions;
+using Codeflix.Catalogo.Domain.SeedWork;
 using System;
 
 namespace Codeflix.Catalogo.Domain.Entity;
 
-public class Category : SeedWork.Entity
+public class Category : AggregateRoot
 {
-    public Guid Id { get; private set; }
     public string Name { get; private set; }
     public string Description { get; private set; }
     public bool IsActive { get; private set; }
     public DateTime CreatedAt { get; private set; }
 
-    public Category(string name, string description, bool isActive = true)
-    {
-        Id = Guid.NewGuid();
+    public Category(string name, string description, bool isActive = true) : base()
+    { 
         Name = name;
         Description = description;
         IsActive = isActive;
@@ -44,7 +43,6 @@ public class Category : SeedWork.Entity
         {
             throw new ArgumentException($"{nameof(Description)} should be at most 10000 characters long");
         }
-        
     }
 
     public void Activate()
